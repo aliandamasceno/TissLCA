@@ -3,4 +3,7 @@
 export(extyear)
 export(getmonth)
 export(getyear)
+import(dplyr)
+import(tidyr)
+import(utils)
 importFrom(magrittr,"%>%")

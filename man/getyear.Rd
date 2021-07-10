@@ -10,15 +10,16 @@ getyear(tipo, ano, uf, cod_IBGE)
 Faz o download e extração dos dados da base TISS do FTP da ANS e retorna dados do município escolhido, procedimentos realizados, quantidade e valor no ano de interesse
 }
 \details{
-tipo: string para 'AMBULATORIAL' ou 'HOSPITALAR'
+tipo: AMBULATORIAL / HOSPITALAR
 
-uf: string para unidade federativa
+uf: unidade federativa
 
 cod_IBGE: inteiro para código IBGE do município de 6 dígitos
+
+ano: a partir de 2015
 }
 \examples{
 #Loading package
 library(TissLCA)
-data <- getyear('AMBULATORIAL', 2019, 'SE', 280030)
-data <- getyear('HOSPITALAR', 2018, 'SP', 355030)
+data <- getyear(AMBULATORIAL, 2019, AC, 120040)
 }

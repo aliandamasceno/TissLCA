@@ -10,14 +10,16 @@ getmonth(tipo, mes, ano, uf)
 Faz o download e extração dos dados da base TISS do FTP da ANS e retorna dados do estado escolhido, procedimentos realizados, quantidade e valor no ano de interesse
 }
 \details{
-tipo: string para 'AMBULATORIAL' ou 'HOSPITALAR'
+tipo: AMBULATORIAL / HOSPITALAR
 
-mes: string para o mês de interesse
+mes: inteiro para o mês de interesse
 
-uf: string para unidade federativa
+uf: unidade federativa
+
+ano: a partir de 2015
 }
 \examples{
 # Loading package
 library(TissLCA)
-data <- getmonth('AMBULATORIAL', '12', 2019, 'AC')
+data <- getmonth(AMBULATORIAL, 12, 2019, AC)
 }

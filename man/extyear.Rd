@@ -19,5 +19,5 @@ Juntar numa mesma dados completos do ano de interesse
 \examples{
 # Loading package
 library(TissLCA)
-data <- extyear(280030,"D:/LCA/Dados/TISS/AMBULATORIAL/2019/SE")
+data <- extyear(280030,"D:/Dados/TISS/AMBULATORIAL/2019/SE")
 }
