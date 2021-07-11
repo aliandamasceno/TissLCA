@@ -22,4 +22,5 @@ ano: a partir de 2015
 #Loading package
 library(TissLCA)
 data <- getyear(AMBULATORIAL, 2019, AC, 120040)
+data <- getyear(HOSPITALAR, 2019, AC, 120040)
 }

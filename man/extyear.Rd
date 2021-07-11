@@ -4,12 +4,14 @@
 \alias{extyear}
 \title{Extração da TISS anual por município}
 \usage{
-extyear(cod_IBGE, wd)
+extyear(tipo, cod_IBGE, wd)
 }
 \description{
 Faz a leitura dos dados anuais descompactados e juntados numa mesma pasta pelo usuário e retorna dados do município escolhido, procedimentos realizados, quantidade e valor no ano de interesse
 }
 \details{
+tipo: AMBULATORIAL / HOSPITALAR
+
 cod_IBGE: Inteiro para código IBGE do município de 6 dígitos
 
 wd: Pasta de trabalho onde estão localizados os dados anuais descompactador
@@ -19,5 +21,6 @@ Juntar numa mesma dados completos do ano de interesse
 \examples{
 # Loading package
 library(TissLCA)
-data <- extyear(280030,"D:/Dados/TISS/AMBULATORIAL/2019/SE")
+data <- extyear(AMBULATORIAL,280030,"D:/Dados/TISS/AMBULATORIAL/2019/SE")
+data <- extyear(HOSPITALAR, 120040, "D:/Dados/TISS/HOSPITALAR/2019")
 }
