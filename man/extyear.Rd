@@ -14,9 +14,9 @@ tipo: AMBULATORIAL / HOSPITALAR
 
 cod_IBGE: Inteiro para código IBGE do município de 6 dígitos
 
-wd: Pasta de trabalho onde estão localizados os dados anuais descompactador
+wd: Pasta de trabalho onde estão localizados os dados anuais descompactados
 
-Juntar numa mesma dados completos do ano de interesse
+Juntar numa mesma pasta dados completos do ano de interesse
 }
 \examples{
 # Loading package

@@ -1,28 +1,42 @@
-#' Extração da TISS anual por município
+#' Download da TISS anual por Muncípio
 #'
 #'
-#' Faz a leitura dos dados anuais descompactados e juntados numa mesma pasta pelo usuário e retorna dados do município escolhido, procedimentos realizados, quantidade e valor no ano de interesse
+#' Faz o download e extração dos dados da base TISS do FTP da ANS e retorna dados do município escolhido, procedimentos realizados, quantidade e valor no ano de interesse
 #'
 #' tipo: AMBULATORIAL / HOSPITALAR
 #'
-#' cod_IBGE: Inteiro para código IBGE do município de 6 dígitos
+#' uf: unidade federativa
 #'
-#' wd: Pasta de trabalho onde estão localizados os dados anuais descompactados
+#' cod_IBGE: inteiro para código IBGE do município de 6 dígitos
 #'
-#' Juntar numa mesma pasta dados completos do ano de interesse
-#' @name extyear
+#' ano: a partir de 2015
+#'
+#' @name getyear
 #' @examples
-#' # Loading package
+#' #Loading package
 #' library(TissLCA)
-#' data <- extyear(AMBULATORIAL,280030,"D:/Dados/TISS/AMBULATORIAL/2019/SE")
-#' data <- extyear(HOSPITALAR, 120040, "D:/Dados/TISS/HOSPITALAR/2019")
-#' @import dplyr
-#' @importFrom  magrittr %>%
+#' data <- getyear(AMBULATORIAL, 2019, AC, 120040)
+#' data <- getyear(HOSPITALAR, 2019, AC, 120040)
+#' @import utils dplyr
+#' @importFrom magrittr %>%
 #' @export
-extyear <- function(tipo, cod_IBGE,wd) {
+getyear <- function(tipo,ano,uf, cod_IBGE) {
   tipo <- substitute(tipo)
-  arquivos<-list.files(wd, pattern = "csv", full.names = TRUE)
-  dados<-lapply(arquivos, read.csv, sep = ",")
+  uf <- substitute(uf)
+  temp <- tempfile()
+  base_url <- "http://ftp.dadosabertos.ans.gov.br/FTP/PDA/TISS"
+  uf.zip<- paste(uf, ".zip",sep = "")
+  endpoint <- paste(base_url,
+                    tipo,
+                    ano,
+                    uf.zip, sep = "/")
+  utils::download.file(endpoint,temp)
+  zip<-utils::unzip(temp, list = TRUE)
+  arquivos<-zip$Name
+  dados<-list()
+  for (i in 1:length(arquivos)) {
+    dados[[i]]<-read.csv(unz(temp,arquivos[i]))
+  }
   impar <- seq(1, length(dados), 2)
   par <- seq(2, length(dados),2)
   if(tipo == "HOSPITALAR") {
