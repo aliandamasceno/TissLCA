@@ -5,7 +5,7 @@
 #'
 #' tipo: AMBULATORIAL / HOSPITALAR
 #'
-#' mes: inteiro para o mês de interesse
+#' mes: string para o mês de interesse
 #'
 #' uf: unidade federativa
 #'
@@ -21,7 +21,6 @@
 #' @export
 getmonth <- function(tipo,mes,ano,uf) {
   tipo <- substitute(tipo)
-  mes <- substitute(mes)
   uf <- substitute(uf)
   temp <- tempfile()
   base_url <- "http://ftp.dadosabertos.ans.gov.br/FTP/PDA/TISS"

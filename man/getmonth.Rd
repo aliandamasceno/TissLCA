@@ -12,7 +12,7 @@ Faz o download e extração dos dados da base TISS do FTP da ANS e retorna dados
 \details{
 tipo: AMBULATORIAL / HOSPITALAR
 
-mes: inteiro para o mês de interesse
+mes: string para o mês de interesse
 
 uf: unidade federativa
 
