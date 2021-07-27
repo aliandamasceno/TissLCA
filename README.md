@@ -3,7 +3,7 @@ Download and extract ANS TISS data
 
 O PACOTE É COMPOSTO POR TRÊS FUNÇÕES: getmonth, getyear e extyear
 
-1. getmonth: Faz o download e extração dos dados da base TISS do FTP da ANS e retorna dados do estado escolhido, procedimentos realizados, quantidade e valor no ano de interesse
+1. getmonth: Faz o download e extração dos dados da base TISS do FTP da ANS e retorna dados do estado escolhido, procedimentos realizados, quantidade e valor e detalhamento no mês de interesse
 
 usage(tipo, mes, ano, uf)
 
