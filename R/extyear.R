@@ -78,7 +78,9 @@ extyear <- function(tipo, cod_IBGE,wd) {
                 df10, df11, df12)
     df <- df %>%
       dplyr::filter(CD_MUNIC_PRESTADOR == cod_IBGE) %>%
-      dplyr::select(CD_MUNIC_PRESTADOR,CD_TUSS_PROCEDIMENTO,
+      dplyr::select(X.ID_EVENTO, ID_PLANO, IDADE_BENEFICIARIO,
+                    SEXO_BENEFICIARIO, DT_REALIZACAO,
+                    CD_MUNIC_PRESTADOR,CD_TUSS_PROCEDIMENTO,
                     QT_PROCEDIMENTO, VL_PROCEDIMENTO) %>%
       dplyr::mutate(VL_PROCEDIMENTO = as.numeric(as.character(VL_PROCEDIMENTO)),
                     QT_PROCEDIMENTO = as.numeric(as.character(QT_PROCEDIMENTO)),
