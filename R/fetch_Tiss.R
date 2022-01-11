@@ -13,12 +13,11 @@
 #'
 #' mes: vetor dos meses de interesse
 #'
-#' @name getyear
+#' @name fetch_Tiss
 #' @examples
 #' #Loading package
 #' library(TissLCA)
-#' data <- fetch_Tiss(tipo = AMBULATORIAL, mes = c("12"), ano = 2019, cod_ibge = c("120040"), uf = AC)
-#' data <- fetch_Tiss(tipo = HOSPITALAR, mes = c("12"), ano = 2019, cod_ibge = c("120040"), uf = AC)
+#' data <- fetch_Tiss(tipo = AMBULATORIAL, mes = c("12"), ano = 2020, cod_IBGE = c("411520"), uf = PR)
 #' @import utils dplyr XML
 #' @importFrom magrittr %>%
 #' @export
