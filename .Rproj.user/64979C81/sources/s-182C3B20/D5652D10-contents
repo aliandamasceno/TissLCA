@@ -65,7 +65,7 @@ fetch_Tiss <- function(tipo,mes,ano,uf,cod_IBGE) {
 
     arquivo[i] <- zip$Name
 
-    dados[[i]] <- read.csv(unz(temp,arquivo[i]), sep = ";", dec = "," )
+    dados[[i]] <- read.csv(unz(temp,arquivo[i]), sep = ";", dec = "," , encoding = "UTF-8")
 
     if(i %in% impar) {dados[[i]] <- dados[[i]] %>%
       dplyr::filter(CD_MUNICIPIO_PRESTADOR %in% cod_IBGE)}
