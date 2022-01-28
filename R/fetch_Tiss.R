@@ -17,13 +17,14 @@
 #' @examples
 #' #Loading package
 #' library(TissLCA)
-#' data <- fetch_Tiss(tipo = AMBULATORIAL, mes = c("12"), ano = 2020, cod_IBGE = c("411520"), uf = PR)
+#' data <- fetch_Tiss(tipo = AMBULATORIAL, mes = 12, ano = 2020, cod_IBGE = c("411520"), uf = PR)
 #' @import utils dplyr XML
 #' @importFrom magrittr %>%
 #' @export
-fetch_Tiss <- function(tipo,mes,ano,uf,cod_IBGE) {
+fetch_tiss <- function(tipo,mes,ano,uf,cod_IBGE) {
 
   tipo <- substitute(tipo)
+  mes <- ifelse(mes <= 9, paste0(0, mes), as.character(mes))
   uf <- substitute(uf)
   wd <- getwd()
   base_url <- "http://ftp.dadosabertos.ans.gov.br/FTP/PDA/TISS"
@@ -76,7 +77,16 @@ fetch_Tiss <- function(tipo,mes,ano,uf,cod_IBGE) {
   }
 
 
-  tiss_uf <- Reduce(dplyr::full_join, dados)
+  tiss_uf <- data.frame()
+
+  for (i in impar) {
+
+    tiss_uf_aux <- dplyr::full_join(dados[[i]], dados[[i+1]])
+
+    tiss_uf <- rbind(tiss_uf, tiss_uf_aux)
+
+   }
+
 
   return(tiss_uf)
 }
