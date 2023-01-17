@@ -7,5 +7,5 @@ Maintainer: Alian Damasceno Rodrigues <alian.rodrigues@lcaconsultores.com.br>
 Description: This package has 3 functions to download and extract data from ANS TISS database. Functions differ between data frequency, downloading or using files directly from the computer, and computational efficiency.
 License: GPL (>= 2)
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.2
 Imports: magrittr, utils, dplyr, tidyr, XML
