@@ -21,5 +21,5 @@ Juntar numa mesma pasta dados completos do ano de interesse
 \examples{
 # Loading package
 library(TissLCA)
-data <- extyear(AMBULATORIAL,280030,"D:/Dados/TISS/AMBULATORIAL/2021/AC")
+data <- extyear(AMBULATORIAL,120040,"E:/Dados/TISS/AMBULATORIAL/2021/AC")
 }

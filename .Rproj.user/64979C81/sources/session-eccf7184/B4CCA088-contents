@@ -1,0 +1,57 @@
+#FAZENDO A LEITURA DOS PACOTES NECESSARIOS. CASO N?O POSSUA ALGUM PACOTE, INSTALE USANDO AS LINHAS A SEGUIR
+#install.packages("devtools")
+#install_github("aliandamasceno/TissLCA", ref = main)
+#install.packages("tidyverse")
+#install.packages("readxl")
+
+library(TissLCA)
+library(tidyverse)
+library(readxl)
+
+
+#DEFININDO A PASTA DO PROJETO. ALTERA PARA O PROJETO DE INTERESSE
+setwd("//appy/c/Clientes/MachadoMeyer/Love/Dados")
+
+#BAIXANDO OS ULTIMOS 5 ANOS PARA AN?LISE DE AC E AP USANDO A FUNCAO FETCH_TISS DO PACOTE TISSLCA
+#CASO TENHA PROBLEMAS COM O DOWNLOAD PELA FUNCAO, VEJA SE OS ARQUIVOS JA NAO ESTAO DISPONIVEIS NA PASTA \\appy\c\Clientes\P3\mercado_saude\bases_de_dados\TISS, OU ENTAO BAIXE-OS, SALVE NESTA PASTA
+#E UTILIZE A FUNCAO EXTYEAR DO PACOTE TISSLCA, COMO NO SEGUNDO EXEMPLO
+
+
+DF1 <- fetch_tiss(tipo = AMBULATORIAL, mes = c(1:12), ano = 2016, uf = SE, cod_IBGE = c("280030"))
+DF2 <- fetch_tiss(tipo = AMBULATORIAL, mes = c(1:12), ano = 2017, uf = SE, cod_IBGE = c("280030"))
+DF3 <- fetch_tiss(tipo = AMBULATORIAL, mes = c(1:12), ano = 2018, uf = SE, cod_IBGE = c("280030"))
+DF4 <- fetch_tiss(tipo = AMBULATORIAL, mes = c(1:12), ano = 2019, uf = SE, cod_IBGE = c("280030"))
+DF5 <- fetch_tiss(tipo = AMBULATORIAL, mes = c(1:12), ano = 2020, uf = SE, cod_IBGE = c("280030"))
+
+#EMPILHANDO OS DADOS PARA A ANALISE DA SERIE
+dados <- rbind(DF1, DF2, DF3, DF4, DF5)
+
+
+#LENDO O DICIONARIO DOS CODIGOS TUSS COM A DESCRIMINACAO POR TIPO DE MERCADO RELEVANTE
+cod_tuss <- read_excel("//appy/c/Clientes/P3/mercado_saude/bases_de_dados/TISS/dicionarios/descricao_cod_tuss.xlsx")
+
+#SELECIONANDO OS CODIGOS DE AC E AP
+cod_tuss <- cod_tuss %>%
+  filter(desc_procedimento %in% c("An?lises Cl?nicas", "Anatomia Patol?gica"))
+
+#ALTERANDO O FORMATO DO CODIGO DA BASE PARA SER COMPATIVEL COM O DICIONARIO E FILTRANDO OS CODIGOS DE AC E AP. DEPOIS SUMARIZANDO OS DADOS EM TERMOS DE VOLUME E GASTO
+analise <- dados %>%
+  filter(CD_PROCEDIMENTO != "TABELA PR?PRIA") %>%
+  mutate(CD_PROCEDIMENTO = as.numeric(as.character(CD_PROCEDIMENTO))) %>%
+  left_join(cod_tuss) %>%
+  filter(!is.na(desc_procedimento)) %>%
+  separate(DT_REALIZACAO, into = c("ano","mes"), sep = "-") %>%
+  group_by(CD_MUNICIPIO_PRESTADOR,ano,desc_procedimento) %>%
+  summarise(faturamento = sum(VL_ITEM_EVENTO_INFORMADO),
+            volume = sum(QT_ITEM_EVENTO_INFORMADO))
+
+write.table(analise, "AC_AP_AJU.csv", sep = ";", dec = ",", row.names = FALSE)
+
+
+#FAZENDO A MESMA ANALISE, AGORA UTILIZANDO OS DADOS JA BAIXADOS E A FUNCAO EXTYEAR DO TISSLCA (FUNCAO MAIS DEMORADA)
+#EXEMPLIFICANDO A EXTRACAO PARA 2019
+
+dados <- extyear(AMBULATORIAL,cod_IBGE = c("280030"), "//appy/c/Clientes/P3/mercado_saude/bases_de_dados/TISS/Ambulatorial/2019/SE" )
+
+
+
