@@ -54,12 +54,12 @@ extyear <- function(tipo, cod_IBGE,wd) {
     for (i in impar) {
       dados[[i]] <- dados[[i]] %>%
         dplyr::filter(CD_MUNICIPIO_PRESTADOR == cod_IBGE) %>%
-        dplyr::select(ID_EVENTO_ATENCAO_SAUDE, CD_MUNICIPIO_PRESTADOR)
+        dplyr::select(ID_EVENTO_ATENCAO_SAUDE, CD_MUNICIPIO_PRESTADOR, NM_MODALIDADE)
     }
     for (i in par) {
       dados[[i]] <- dados[[i]] %>%
         dplyr::select(ID_EVENTO_ATENCAO_SAUDE,VL_ITEM_EVENTO_INFORMADO,CD_PROCEDIMENTO,
-                      QT_ITEM_EVENTO_INFORMADO)
+                      QT_ITEM_EVENTO_INFORMADO, IND_PACOTE)
     }
     df1 <- dplyr::full_join(dados[[1]], dados[[2]], by = "ID_EVENTO_ATENCAO_SAUDE")
     df2 <- dplyr::full_join(dados[[3]], dados[[4]], by = "ID_EVENTO_ATENCAO_SAUDE")
